@@ -1,0 +1,27 @@
+package udesc.br.exemplolayouts;
+
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    public void abreLinear(View v) {
+        startActivity(new Intent(this, LinearActivity.class));
+    }
+
+    public void abreRelative(View v) {
+        startActivity(new Intent(this, RelativeActivity.class));
+    }
+
+    public void abreTable(View v) {
+        startActivity(new Intent(this, TableActivity.class));
+    }
+}
