@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>Exemplo - Armazenamento com localStorage</title>
+  <link rel="stylesheet" href="icons/material.css">
+  <link rel="stylesheet" href="css/materialize.min.css">
+
+  <style>
+    body {
+      background-color: white;
+    }
+
+    .titulo {
+      font-size: 1.5rem;
+      margin-left: 5%;
+      margin-right: auto;
+    }
+
+    .topo-fixo {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 2;
+    }
+
+    .section {
+      padding-top: 125px;
+    }
+
+    .tabs .indicator {
+      background-color: white;
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="topo-fixo z-depth-1">
+    <div class="valign-wrapper red darken-3 white-text">
+      <h5 class="titulo">Cadastro de Disciplinas</h5>
+    </div>
+
+    <ul class="tabs red lighten-2">
+      <li class="tab"><a href="#inserir" class="white-text waves-effect waves-light">Cadastrar</a></li>
+      <li class="tab"><a href="#apagar" class="white-text  waves-effect waves-light">Excluir</a></li>
+      <li class="tab"><a href="#relatorio" class="white-text  waves-effect waves-light">Consultar</a></li>
+    </ul>
+  </div>
+
+  <div id="inserir" class="section black-text">
+    <div class="row">
+      <form id="form-disciplina" class="col s12">
+        <div class="input-field col s12">
+          <select id="curso">
+            <option value="BSI">Sistemas de Informação</option>
+            <option value="ESO">Engenharia de Software</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="sigla" type="text" class="validate">
+            <label for="sigla">Sigla</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="nome" type="text" class="validate">
+            <label for="nome">Nome</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="professor" type="text" class="validate">
+            <label for="professor">Professor</label>
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+              <label for="dia">Informe o dia das aulas</label>
+            </div>
+            <div class="input-field col s12">
+              <input name="dia" type="radio" id="seg" value="SEG"/>
+              <label for="seg">Segunda-feira</label>
+              <input name="dia" type="radio" id="ter" value="TER"/>
+              <label for="ter">Terça-feira</label>
+              <input name="dia" type="radio" id="qua" value="QUA"/>
+              <label for="qua">Quarta-feira</label>
+              <input name="dia" type="radio" id="qui" value="QUI"/>
+              <label for="qui">Quinta-feira</label>
+              <input name="dia" type="radio" id="sex" value="SEX"/>
+              <label for="sex">Sexta-feira</label>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="apagar" class="section black-text">
+    Excluir disciplina - TBD.
+  </div>
+
+  <div id="relatorio" class="section black-text">
+    Consultar disciplina - TBD.
+  </div>
+
+  <div class="fixed-action-btn">
+    <a href="" id="salvar" class="btn-floating btn-large red">
+      <i class="material-icons">done</i>
+    </a>
+  </div>
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/materialize.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('select').material_select();
+    });
+
+    $('#salvar').on('click', function() {
+      var curso = $('#curso').val();
+      var sigla = $('#sigla').val();
+      var nome = $('#nome').val();
+      var professor = $('#professor').val();
+      var dia = $('input[name=dia]:checked', '#form-disciplina').val();
+
+      localStorage.setItem(sigla + '-curso', curso);
+      localStorage.setItem(sigla + '-nome', nome);
+      localStorage.setItem(sigla + '-professor', professor);
+      localStorage.setItem(sigla + '-dia', dia);
+
+      var listaSiglas = localStorage.getItem('siglas');
+      if(listaSiglas == null)
+        localStorage.setItem('siglas', sigla);
+      else
+        localStorage.setItem('siglas', listaSiglas + ';' + sigla);
+
+      location.reload();
+    });
+  </script>
+</body>
+</html>
